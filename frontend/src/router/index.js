@@ -10,6 +10,7 @@ import Converter from "@/views/Converter.vue"
 import FCE from "@/views/FCE/FCEmain.vue"
 import axios from "@/axios/index.js";
 import EWM from "@/views/EWM/EWMmain.vue"
+import LiteratureReview from "@/views/LiteratureReview.vue"
 import { createRouter, createWebHistory } from 'vue-router'
 import {host} from "@/components/global.js";
 import favicon from "/favicon.ico"
@@ -54,6 +55,10 @@ const routes = [
       {
         path: "/tools-next/ewm",
         component: EWM,
+      },
+      {
+        path: "/tools-next/literature-review",
+        component: LiteratureReview,
       },
       {
         path: "/favicon.ico",

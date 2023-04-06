@@ -6,8 +6,6 @@
         {{ show.msg }}
     </v-snackbar>
     <v-container>
-        <v-row>
-            <v-col>
                 <v-card>
                     <v-container>
                         <v-card-title>
@@ -60,7 +58,6 @@
                         </v-card-text>
                     </v-container>
                 </v-card>
-            </v-col>
             <!-- <v-col cols="6">
                 <v-card>
                     <v-container>
@@ -79,7 +76,6 @@
                 </v-card>
             </v-col> -->
 
-        </v-row>
     </v-container>
 </template>
 

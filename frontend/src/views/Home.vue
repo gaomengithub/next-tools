@@ -54,10 +54,10 @@ const menuItems = [{
 
 
 const methodItems = [
-  { text: "熵权法", icon: "mdi-alpha-e-circle", path: "/tools-next/ewm", disable: false },
+  //{ text: "熵权法", icon: "mdi-alpha-e-circle", path: "/tools-next/ewm", disable: false },
   { text: "层次分析法", icon: "mdi-alpha-a-circle", path: "/tools-next/ahp", disable: false },
   { text: "模糊综合评价法", icon: "mdi-alpha-f-circle", path: "/tools-next/fce", disable: false },
-
+  //{ text: "模糊综合评价法", icon: "mdi-alpha-f-circle", path: "/tools-next/fce", disable: false },
 ];
 // const modelItems = [
 //   { text: "随机森林模型", icon: "mdi-alpha-a-circle" },
@@ -68,6 +68,7 @@ const toolsItems = [
   { text: "网站合集", icon: "mdi-folder", path: "/tools-next/web-list", disable: false },
   { text: "英文目录", icon: "mdi-google-ads", path: "/tools-next/en-dir", disable: false },
   { text: "查重标记", icon: "mdi-laser-pointer", path: "/tools-next/mark-color", disable: false },
+  { text: "文献综述", icon: "mdi-file-find", path: "/tools-next/literature-review", disable: false },
   { text: "排版辅助", icon: "mdi-layers-triple", path: "/tools-next/typeset", disable: false },
   { text: "格式转换", icon: "mdi-page-next", path: "/tools-next/converter", disable: true },
 ]
