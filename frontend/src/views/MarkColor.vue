@@ -41,7 +41,7 @@
 import axios from 'axios';
 import { ref } from 'vue';
 import { host, wsHost } from '@/components/global.js'
-import Loader from '@/components/Loader.vue';
+import Loader from '@/components/loader.vue';
 let params = ref({ is: [], colors: '', filename: '' })
 const toggle = ref([])
 const loader = ref()
