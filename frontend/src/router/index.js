@@ -1,6 +1,5 @@
 import Home from "@/views/Home.vue";
 import Login from "@/views/Login.vue"
-import Logs from "@/views/Logs.vue";
 import AHPmain from "@/views/AHP/AHPmain.vue";
 import WebList from "@/views/WebList.vue";
 import EnDir from "@/views/EnDir.vue";
@@ -14,6 +13,7 @@ import LiteratureReview from "@/views/LiteratureReview.vue"
 import { createRouter, createWebHistory } from 'vue-router'
 import {host} from "@/components/global.js";
 import favicon from "/favicon.ico"
+import CitationMark from "@/views/CitationMark.vue"
 
 const routes = [
   {
@@ -61,16 +61,20 @@ const routes = [
         component: LiteratureReview,
       },
       {
+        path: "/tools-next/citation-mark",
+        component: CitationMark,
+      },
+      {
         path: "/favicon.ico",
         component: favicon,
       },
       {
         path: "/tools-next/",
-        component: Logs,
+        component: WebList,
       },
       {
         path: "/:pathMatch(.*)",
-        component: Logs,
+        component: WebList,
       },
     ],
   },

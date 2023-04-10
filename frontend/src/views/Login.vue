@@ -42,7 +42,7 @@ function login() {
     .then(function (response) {
       // console.log(response)
       localStorage.setItem("token", response.data.access_token);
-      router.push("/tools-next/")
+      router.push("/tools-next/web-list")
       // store.setUsername(response.data.username)
     }).catch(function (error) {
       loginErr.value.info = error.response.data.detail

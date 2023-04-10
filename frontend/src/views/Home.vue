@@ -69,6 +69,7 @@ const toolsItems = [
   { text: "英文目录", icon: "mdi-google-ads", path: "/tools-next/en-dir", disable: false },
   { text: "查重标记", icon: "mdi-laser-pointer", path: "/tools-next/mark-color", disable: false },
   { text: "文献综述", icon: "mdi-file-find", path: "/tools-next/literature-review", disable: false },
+  { text: "文献标记", icon: "mdi-target", path: "/tools-next/citation-mark", disable: false },
   { text: "排版辅助", icon: "mdi-layers-triple", path: "/tools-next/typeset", disable: false },
   { text: "格式转换", icon: "mdi-page-next", path: "/tools-next/converter", disable: true },
 ]
