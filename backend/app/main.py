@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from app.internal import auth, video
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import ahp, fce, dir, mark, set, websocket ,cnki
+from app.routers import ahp, fce, dir, mark, set, websocket ,cnki ,citation
 
 app = FastAPI()
 
@@ -26,6 +26,7 @@ app.include_router(set.router, prefix='/tools-next/api')
 app.include_router(websocket.router, prefix='/tools-next/api')
 app.include_router(video.router, prefix='/tools-next/api')
 app.include_router(cnki.router,prefix='/tools-next/api')
+app.include_router(citation.router,prefix='/tools-next/api')
 
 if __name__ == "__main__":
     # uvicorn.run(app="app.main:app", host="192.168.31.59", port=8000, reload=True, debug=True)
