@@ -9,32 +9,16 @@
         <v-card>
             <v-container>
                 <v-card-title>
-                    第一步：上传Word
+                    注意事项
                 </v-card-title>
+                
                 <v-card-text>
-                    <v-file-input accept=".doc,.docx" label="需要标记的Word" hide-details="auto" show-size @change="wsUploadReport">
+                    1、word文档中必须包含“参考文献”，字之间不能有空格。<br>
+                    2、标记的和未标记的使用颜色区分，未能标记的文献采用黄色。<br>
+                    3、会返回两个版本，一个版本带有脚注，另外一个没有。
+                    <v-divider></v-divider>
+                    <v-file-input accept=".doc,.docx" label="需要标记的Word" hide-details="auto" show-size @change="wsUploadWord">
                     </v-file-input>
-                </v-card-text>
-                <v-card-title>
-                    第二步：选择返回的版本（可多选）
-                </v-card-title>
-                <v-card-text>
-                    <v-chip-group v-model="params.is" column multiple>
-                        <v-chip v-for="item in toggle" filter outlined label>
-                            {{ item }}
-                        </v-chip>
-                    </v-chip-group>
-                </v-card-text>
-                <v-card-title>
-                    第三步：点击开始按钮，等待完成。
-                </v-card-title>
-                <v-card-text>
-                    <v-btn block >
-                        开始
-                    </v-btn>
-                    <!-- <v-file-input accept=".doc,.docx" hide-details="auto" label="需要标注的文档" density="default" show-size
-                        @change="wsUploadWord" :disabled="params.is.length == 0">
-                    </v-file-input> -->
                 </v-card-text>
             </v-container>
         </v-card>
@@ -47,37 +31,12 @@ import { ref } from 'vue';
 import { host, wsHost } from '@/components/global.js'
 import Loader from '@/components/loader.vue';
 let params = ref({ is: [], colors: '', filename: '' })
-const toggle = ref(["带有脚注的版本","不带脚注的版本"])
 const loader = ref()
 const show = ref({ is: false, msg: "" })
 const status = ref('开始')
 const timestamp = Date.now()
 
-function wsUploadReport(event) {
-    loader.value.switchLoader()
-    const ws = new WebSocket(`ws://${wsHost}ws/mark_color/upload_report_extract_colors/${timestamp}`)
-    ws.binaryType = 'arraybuffer'
-    ws.onopen = function () {
-        wsUploadFile(event, ws)
-    };
-    ws.onmessage = function (evt) {
-        const _json = JSON.parse(evt.data);
-        status.value = _json.status
-        if ("toggle" in _json) {
-            toggle.value = _json.toggle.split("|");
-            params.value.colors = _json.colors
-            loader.value.switchLoader();
-        }
-    };
-    // ws.onclose = function () {
-    //     console.log("websocket is disconnected");
-    // };
-    ws.onerror = function () {
-        loader.value.switchLoader()
-        show.value.is = true
-        show.value.msg = "websocket连接发生错误请联系开发者。"
-    }
-}
+
 
 function wsUploadFile(event, ws) {
     let file = event.target.files[0];
@@ -98,7 +57,7 @@ function wsUploadFile(event, ws) {
 
 function wsUploadWord(event) {
     loader.value.switchLoader()
-    const ws = new WebSocket(`ws://${wsHost}ws/mark_color/upload_word_mark_color/${timestamp}`)
+    const ws = new WebSocket(`ws://${wsHost}ws/citation-mark/upload_word/${timestamp}`)
     ws.binaryType = 'arraybuffer'
     ws.onopen = function () {
         params.value.filename = event.target.files[0].name;
@@ -132,27 +91,7 @@ function wsUploadWord(event) {
 //     params.is = amenities.value
 // })
 
-function uploadReport(event) {
 
-    let formData = new FormData()
-    formData.append('file', event.target.files[0])
-    loader.value.switchLoader()
-    axios({
-        url: host + "mark_color/check_report/",
-        method: 'post',
-        data: formData,
-        headers: {
-            'Content-Type': "multipart/form-data",
-        },
-        // onUploadProgress: progressEvent => {
-        //     processReport.value = (progressEvent.loaded / progressEvent.total * 100 | 0)
-        // }
-    }).then(res => {
-        toggle.value = res.data.toggle
-        params = res.data
-        loader.value.switchLoader()
-    })
-}
 
 
 
@@ -185,33 +124,7 @@ function uploadReport(event) {
 
 
 
-function uploadWord(event) {
-    let formData = new FormData()
-    formData.append('file', event.target.files[0])
-    formData.append('params', JSON.stringify(params)) // params need change
-    formData.append('client_id', client_id.toString())
-    loader.value.switchLoader()
 
-    axios({
-        url: host + "mark_color/mark_word/",
-        method: 'post',
-        data: formData,
-        responseType: 'blob',
-        headers: {
-            'Content-Type': "multipart/form-data",
-        },
-        onUploadProgress: progressEvent => {
-            processReport.value = (progressEvent.loaded / progressEvent.total * 100 | 0)
-        }
-    }).then(res => {
-        exportWord(res);
-        loader.value.switchLoader()
-        amenities.value = []
-
-    }).catch(() => {
-        console.log('后台报错了')
-    })
-}
 
 function exportWord(res) {
     const blob = new Blob([res.data]);
