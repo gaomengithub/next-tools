@@ -20,7 +20,7 @@
                 </v-card-title>
                 <v-card-text>
                     <v-chip-group v-model="params.is" column multiple>
-                        <v-chip v-for="item in toggle" filter outlined :style="{ 'background-color': item }">
+                        <v-chip v-for="item in toggle" :key="item" filter outlined :style="{ 'background-color': item }">
                         </v-chip>
                     </v-chip-group>
                 </v-card-text>
@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import axios from 'axios';
+
 import { ref } from 'vue';
 import { host, wsHost } from '@/components/global.js'
 import Loader from '@/components/loader.vue';
@@ -128,29 +128,6 @@ function wsUploadWord(event) {
 //     params.is = amenities.value
 // })
 
-function uploadReport(event) {
-
-    let formData = new FormData()
-    formData.append('file', event.target.files[0])
-    loader.value.switchLoader()
-    axios({
-        url: host + "mark_color/check_report/",
-        method: 'post',
-        data: formData,
-        headers: {
-            'Content-Type': "multipart/form-data",
-        },
-        // onUploadProgress: progressEvent => {
-        //     processReport.value = (progressEvent.loaded / progressEvent.total * 100 | 0)
-        // }
-    }).then(res => {
-        toggle.value = res.data.toggle
-        params = res.data
-        loader.value.switchLoader()
-    })
-}
-
-
 
 // onMounted(() => {
 //     // websocket
@@ -179,35 +156,6 @@ function uploadReport(event) {
 //     ws = null
 // })
 
-
-
-function uploadWord(event) {
-    let formData = new FormData()
-    formData.append('file', event.target.files[0])
-    formData.append('params', JSON.stringify(params)) // params need change
-    formData.append('client_id', client_id.toString())
-    loader.value.switchLoader()
-
-    axios({
-        url: host + "mark_color/mark_word/",
-        method: 'post',
-        data: formData,
-        responseType: 'blob',
-        headers: {
-            'Content-Type': "multipart/form-data",
-        },
-        onUploadProgress: progressEvent => {
-            processReport.value = (progressEvent.loaded / progressEvent.total * 100 | 0)
-        }
-    }).then(res => {
-        exportWord(res);
-        loader.value.switchLoader()
-        amenities.value = []
-
-    }).catch(() => {
-        console.log('后台报错了')
-    })
-}
 
 function exportWord(res) {
     const blob = new Blob([res.data]);

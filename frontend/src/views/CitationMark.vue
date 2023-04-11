@@ -26,7 +26,6 @@
 </template>
 
 <script setup>
-import axios from 'axios';
 import { ref } from 'vue';
 import { host, wsHost } from '@/components/global.js'
 import Loader from '@/components/loader.vue';
